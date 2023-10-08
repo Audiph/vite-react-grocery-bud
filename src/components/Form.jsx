@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import { toast } from 'react-toastify';
 
 const Form = ({ setItems, items }) => {
   const handleSubmit = (e) => {
@@ -6,11 +7,20 @@ const Form = ({ setItems, items }) => {
 
     const formData = new FormData(e.currentTarget);
     let newItem = Object.fromEntries(formData);
+
+    console.log(newItem.name);
+
+    if (!newItem.name) {
+      toast.error('please provide value');
+      return;
+    }
+
     newItem.completed = false;
     newItem.id = nanoid();
     const newItems = [...items, newItem];
     setItems(newItems);
     console.log(newItems);
+    toast.success('Item Added');
     e.currentTarget.reset();
     localStorage.setItem('list', JSON.stringify(newItems));
   };

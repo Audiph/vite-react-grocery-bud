@@ -1,4 +1,4 @@
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import Form from './components/Form';
 import List from './components/List';
 import { useEffect, useState } from 'react';
@@ -13,16 +13,18 @@ const App = () => {
   };
 
   useEffect(() => {
-    const getList = localStorage.getItem('list');
-    const parsedArr = JSON.parse(getList);
-    if (parsedArr) {
-      setItems(parsedArr);
+    let getList = localStorage.getItem('list');
+    if (getList) {
+      getList = JSON.parse(localStorage.getItem('list'));
+      setItems(getList);
+    } else {
+      setItems([]);
     }
   }, []);
 
   return (
     <section className="section-center">
-      <div className="Toastify" />
+      <ToastContainer position="top-center" />
       <Form setItems={setItems} items={items} />
       <List items={items} handleRemoveItem={handleRemoveItem} />
     </section>

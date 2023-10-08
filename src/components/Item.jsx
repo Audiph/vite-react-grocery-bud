@@ -16,11 +16,10 @@ const Item = ({ id, name, completed, handleRemoveItem }) => {
     <div className="single-item">
       <input type="checkbox" checked={complete} onChange={handleCompleted} />
       <p
-        style={
-          complete
-            ? { textTransform: 'capitalize', textDecoration: 'line-through' }
-            : { textTransform: 'capitalize' }
-        }
+        style={{
+          textTransform: 'capitalize',
+          textDecoration: complete && 'line-through',
+        }}
       >
         {name}
       </p>
